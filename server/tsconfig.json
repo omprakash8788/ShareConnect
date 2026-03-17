@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Basic Setup */
+    "target": "ES6",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    /* Project Structure */
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    /* Type Safety */
+    "strict": true,
+
+    /* Node Compatibility */
+    "esModuleInterop": true,
+    "types": ["node"],
+
+    /* Debugging */
+    "sourceMap": true,
+
+    /* Performance */
+    "skipLibCheck": true
+  }
+}
