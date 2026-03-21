@@ -1,9 +1,9 @@
-import { Document } from "mongoose";
+import { IUser } from "../models/user.model";
 
 declare global {
   namespace Express {
     interface Request {
-      profile?: Document; // or your User type
+      profile?: IUser;
     }
   }
 }

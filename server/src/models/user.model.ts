@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 import crypto from "crypto";
 
 
-interface IUser extends Document {
+export interface IUser extends Document {
   name: string;
   about?: string;
   email: string;
