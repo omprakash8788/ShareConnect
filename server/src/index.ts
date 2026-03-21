@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
+import userRoutes from './routes/user.routes'
 import ConnectedToMongoDBDataBase from "./db/databasedconnection";
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(cors())
 // Databased call
 ConnectedToMongoDBDataBase()
 
+app.use('/', userRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello TS Backend");
