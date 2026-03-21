@@ -27,7 +27,22 @@ const listAllUsers = async(req:Request, res:Response) => {
   }
 }
 
-const userByID = (req:Request, res:Response, next:NextFunction, id:string) => {
+const userByID =async (req:Request, res:Response, next:NextFunction, id:string) => {
+  try {
+    let user = await userModel.findById(id);
+    if(!user){
+      return res.status(400).json({
+        error:"User not found"
+      })
+    }
+    req.profile = user;
+    next()
+    
+  } catch (error) {
+     return res.status(400).json({
+      message: "Could not retrieve user" + error
+    })
+  }
 
 }
 
