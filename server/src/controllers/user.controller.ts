@@ -15,46 +15,51 @@ const createNewUser = async (req: Request, res: Response, next: NextFunction) =>
   }
 }
 
-const listAllUsers = async(req:Request, res:Response) => {
+const listAllUsers = async (req: Request, res: Response) => {
   try {
     let users = await userModel.find().select('name email updated created')
     res.json(users)
-    
-  } catch(error) {
-      return res.status(400).json({
+
+  } catch (error) {
+    return res.status(400).json({
       message: "Error while Fetching users!" + error
     })
   }
 }
 
-const userByID =async (req:Request, res:Response, next:NextFunction, id:string) => {
+const userByID = async (req: Request, res: Response, next: NextFunction, id: string) => {
   try {
     let user = await userModel.findById(id);
-    if(!user){
+    if (!user) {
       return res.status(400).json({
-        error:"User not found"
+        error: "User not found"
       })
     }
     req.profile = user;
     next()
-    
+
   } catch (error) {
-     return res.status(400).json({
+    return res.status(400).json({
       message: "Could not retrieve user" + error
     })
   }
 
 }
 
-const read = (req:Request, res:Response) => {
+const read = (req: Request, res: Response) => {
+  if (!req.profile) {
+    return res.status(400).json({ error: "User not found" });
+  }
+  req.profile.hashed_password = undefined as any;
+  req.profile.salt = undefined as any;
+  return res.json(req.profile);
+};
+
+const update = (req: Request, res: Response, next: NextFunction) => {
 
 }
 
-const update = (req:Request, res:Response, next:NextFunction) => {
-
-}
-
-const remove = (req:Request, res:Response, next:NextFunction) => {
+const remove = (req: Request, res: Response, next: NextFunction) => {
 
 }
 
