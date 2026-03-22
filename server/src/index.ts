@@ -6,6 +6,7 @@ import compress from 'compression'
 import cors from 'cors'
 import helmet from 'helmet'
 import userRoutes from './routes/user.routes'
+import authRoutes from './routes/auth.routes'
 import ConnectedToMongoDBDataBase from "./db/databasedconnection";
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cors())
 ConnectedToMongoDBDataBase()
 
 app.use('/', userRoutes)
+app.use('/', authRoutes)
 
 app.get("/", (req, res) => {
   res.send("Hello TS Backend");
