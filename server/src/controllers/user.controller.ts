@@ -1,7 +1,7 @@
-import userModel from "../models/user.model";
+import userModel, { IUser } from "../models/user.model";
 import dbErrorHandler from "../helpers/dbErrorHandler";
 import { Request, Response, NextFunction } from "express";
-
+import extend from "lodash/extend";
 
 const createNewUser = async (req: Request, res: Response, next: NextFunction) => {
   const user = new userModel(req.body);
@@ -54,10 +54,29 @@ const read = (req: Request, res: Response) => {
   req.profile.salt = undefined as any;
   return res.json(req.profile);
 };
+const update = async (req: Request, res: Response) => {
+  try {
+    if (!req.profile) {
+      return res.status(400).json({ error: "User not found" });
+    }
 
-const update = (req: Request, res: Response, next: NextFunction) => {
+    let user = req.profile;
 
-}
+    Object.assign(user, req.body);
+    user.updated = new Date();
+
+    await user.save();
+
+    user.hashed_password = undefined as any;
+    user.salt = undefined as any;
+
+    res.json(user);
+  } catch (error) {
+    return res.status(400).json({
+      message: "Could not update user " + error,
+    });
+  }
+};
 
 const remove = (req: Request, res: Response, next: NextFunction) => {
 
