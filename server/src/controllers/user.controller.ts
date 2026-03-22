@@ -78,8 +78,22 @@ const update = async (req: Request, res: Response) => {
   }
 };
 
-const remove = (req: Request, res: Response, next: NextFunction) => {
+const remove = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (!req.profile) {
+      return res.status(400).json({ error: "User not found" });
+    }
+    let user = req.profile;
+    let deletedUser = await user.deleteOne();
+    deletedUser.hashed_password = undefined
+    deletedUser.salt = undefined
+    res.json(deletedUser)
 
+  } catch (error) {
+    return res.status(400).json({
+      message: "Error while removing user" + error,
+    });
+  }
 }
 
 export default { createNewUser, userByID, read, listAllUsers, remove, update }
