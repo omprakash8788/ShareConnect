@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import express from "express";
+import express, { NextFunction, Response, Request } from "express";
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import compress from 'compression'
@@ -31,6 +31,15 @@ app.use('/', authRoutes)
 app.get("/", (req, res) => {
   res.send("Hello TS Backend");
 });
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).json({ "error": err.name + ": " + err.message })
+  } else if (err) {
+    res.status(400).json({ "error": err.name + ": " + err.message })
+    console.log(err)
+  }
+})
 
 app.listen(port_server, () => {
   console.log(`Server running on ${port_server}`);
