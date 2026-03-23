@@ -1,5 +1,6 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express from "express";
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import compress from 'compression'
@@ -8,7 +9,6 @@ import helmet from 'helmet'
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
 import ConnectedToMongoDBDataBase from "./db/databasedconnection";
-dotenv.config();
 
 const app = express();
 app.use(express.json());
