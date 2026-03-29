@@ -7,6 +7,7 @@ const App = () => {
     <div className="bg-red-300">
       <Navbar/>
        <Routes>
+         
         <Route path="/" element={<Home />} />
       </Routes>
     </div>
