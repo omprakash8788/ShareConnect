@@ -2,7 +2,7 @@ import type { User } from "../types/user";
 
 const API = import.meta.env.VITE_API_URL;
 
-const create = async (user:User) => {
+const create = async (user: User) => {
     try {
         const response = await fetch(`${API}/api/users/`, {
             method: 'POST',
