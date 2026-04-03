@@ -18,4 +18,17 @@ const create = async (user: User) => {
     }
 }
 
-export { create }
+const list = async (signal: AbortSignal) => {
+    try {
+        const response = await fetch(`${API}/api/users/`, {
+            method: 'GET',
+            signal: signal,
+        })
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+export { create, list }
