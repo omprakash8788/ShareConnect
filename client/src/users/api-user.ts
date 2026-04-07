@@ -7,7 +7,7 @@ type Params = {
 };
 
 type Credentials = {
-    t: string; 
+    t: string;
 };
 
 const create = async (user: User) => {
@@ -55,7 +55,25 @@ const read = async (params: Params, credentials: Credentials, signal: AbortSigna
     }
 }
 
+const update = async (params:Params, credentials:Credentials, user:User) => {
+    try {
+        const response = await fetch('/api/users/' + params.userId, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + credentials.t
+            },
+            body: JSON.stringify(user)
+        })
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
 
-export { create, list, read }
+
+
+export { create, list, read, update }
 
 
