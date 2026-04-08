@@ -2,6 +2,7 @@ import type { User } from "../types/user";
 
 const API = import.meta.env.VITE_API_URL;
 
+
 type Params = {
     userId: string;
 };
